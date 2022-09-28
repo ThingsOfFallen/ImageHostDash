@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply bg-slate-800 text-gray-200;
+}
+
+small {
+    @apply text-gray-400;
+}
+
+input, textarea {
+    @apply p-2 bg-slate-900 rounded outline outline-1 outline-slate-400;
+    @apply focus:outline focus:outline-1 focus:outline-slate-200;
+}

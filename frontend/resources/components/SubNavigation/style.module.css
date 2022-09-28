@@ -1,0 +1,4 @@
+.settingsNav {
+    @apply flex grow justify-center items-center h-full rounded;
+    @apply hover:bg-slate-600;
+}
