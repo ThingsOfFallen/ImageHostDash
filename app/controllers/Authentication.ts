@@ -24,17 +24,20 @@ export const callback: Request = async (app, req: LoginCallbackRequest, res) => 
     if (code.status !== 200) return serverError(res, 'ERR.DISCORD_API', 'The Discord API provided an invalid response.');
     const userInfo = (await axios.get('https://discord.com/api/v10/users/@me', { headers: { Authorization: `Bearer ${code.data.access_token}` } })).data;
     
-    if (await (User.exists({ discordId: userInfo.id }))) {
-        const user = await User.findOne({ discordId: userInfo.id });
+    const user = await User.findOne({ discordId: userInfo.id });
+
+    if (user) {
         const userToken = sign(user?.id, user?.tokenId!);
         return success(res, 'Successfully logged in.', { key: 'token', value: userToken });
     } else {
         const userId = gen('id', 8);
+        const userKey = gen('str', 48);
         const userTokenId = gen('str', 32);
         const userToken = sign(userId, userTokenId);
 
         await User.create({
-            id: userId,
+            _id: userId,
+            key: userKey,
             tokenId: userTokenId,
             email: userInfo.email,
             discordId: userInfo.id,

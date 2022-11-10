@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest, FastifyInstance, FastifyPluginOptions, HookHandlerDoneFunction } from "fastify";
 import clientAuth from '@/middleware/client/authorization';
 
-import * as account from '@/controllers/Account';
+import * as user from '@/controllers/User';
 import * as auth from '@/controllers/Authentication';
 
 export default async (route: FastifyInstance, options: FastifyPluginOptions) => {
@@ -9,8 +9,11 @@ export default async (route: FastifyInstance, options: FastifyPluginOptions) => 
     route.get('/login', (req, res) => { return auth.login(route, req, res) });
     route.post('/login/callback', { preValidation: loginCallbackPreValidation }, (req, res) => { return auth.callback(route, req, res) });
 
-    // Account Routes
-    route.get('/account', { preHandler: clientAuth }, (req, res) => { return account.data(route, req, res) });
+    // User Routes
+    route.get('/user', { preHandler: clientAuth }, (req, res) => { return user.data(route, req, res) });
+    route.get('/user/key', { preHandler: clientAuth }, (req, res) => user.key(route, req, res));
+
+    route.post('/user/key', { preHandler: clientAuth }, (req, res) => user.regenKey(route, req, res));
 };
 
 export type LoginCallbackRequest = FastifyRequest<{ Querystring?: { code?: string; } }>;

@@ -4,10 +4,9 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import {StoreProvider} from "easy-peasy";
 import store from './store';
-import {getAccount} from "./api/account";
+import {getUser} from "./api/user";
 import Dashboard from "./pages/dashboard/Dashboard";
 import RestrictedRoute from "./components/RestrictedRoute";
-import Loader from "./components/Loader";
 import cookie from "js-cookie";
 import Overview from "@/pages/dashboard/settings/Overview";
 
@@ -25,7 +24,7 @@ const App = () => {
     ));
 
     if (!store.getState().data && !loaded && cookie.get('token')) {
-        getAccount().then((data) => {
+        getUser().then((data) => {
             store.getActions().setData(data.data);
             setLoaded(true);
         }).catch((err) => {

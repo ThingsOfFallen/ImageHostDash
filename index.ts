@@ -5,6 +5,7 @@ import fastifyCors from "@fastify/cors";
 import { join } from "path";
 import router from "@router";
 import dbConnect from "@/utilities/dbConnect";
+import { readFileSync } from "fs";
 
 const app = fastify({ logger: true });
 

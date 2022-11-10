@@ -16,7 +16,8 @@
     "dotenv": "^16.0.2",
     "fastify": "^4.6.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.6.1"
+    "mongoose": "^6.6.1",
+    "nanoid": "3.0.0"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^8.5.9",

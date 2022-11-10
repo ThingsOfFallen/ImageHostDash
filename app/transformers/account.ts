@@ -2,7 +2,7 @@ import { AccountTransformer } from "@interfaces";
 
 export default (data: any): AccountTransformer => {
     return {
-        id: data.id,
+        id: data._id,
         email: data.email,
         username: data.username,
         discordId: data.discordId,

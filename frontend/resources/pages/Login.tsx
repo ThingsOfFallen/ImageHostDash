@@ -1,19 +1,16 @@
 import {useSearchParams} from "react-router-dom";
 import http from "../api/http";
+import Loader from "@/components/Loader";
 
 const Login = () => {
-	const [params, setParams] = useSearchParams();
+	const [params, _setParams] = useSearchParams();
 	const code = params.get('code');
 
 	http.post(`/login/callback?code=${code}`).then((data) => {
 		if (data.data.error) alert('error'); else window.location.href = '/';
 	});
 
-	return (
-		<div>
-			<h1>Logging in...</h1>
-		</div>
-	);
+	return <Loader/>;
 };
 
 export default Login;
